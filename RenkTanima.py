@@ -30,12 +30,12 @@ while True:
     for contour in contours:
         # Konturun etrafına bir dikdörtgen çizilir
         x, y, w, h = cv2.boundingRect(contour)
-        cv2.rectangle(frame, (x, y), (x + w, y + h), (0, 255, 0), 2)  # Ana pencere için dikdörtgen çizimi
-        cv2.rectangle(red, (x, y), (x + w, y + h), (0, 255, 0), 2)  # "Red Mask" pencere için dikdörtgen çizimi
+        cv2.rectangle(frame, (x, y), (x + w, y + h), (0, 255, 0), 2)  # Capture için şekil işaretleme 
+        cv2.rectangle(red, (x, y), (x + w, y + h), (0, 255, 0), 2)  # Red Mask için şekil işaretleme 
 
     # Yakalanan frameler ekranda imshow ile gösterilir. 
     # İlk parametre pencere ismi ikinci paramaetre ekranda gösterilecek değerdir. 
-    cv2.imshow("Renk Tanima", frame)
+    cv2.imshow("Capture", frame)
     # Maskelenen alana beyaz gözükür 
     #cv2.imshow("Mask", red_mask)
     cv2.imshow("Red Mask", red)
