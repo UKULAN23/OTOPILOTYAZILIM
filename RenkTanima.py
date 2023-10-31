@@ -15,7 +15,7 @@ while True:
     # Gürültü azaltmak için blur 
     #frame = cv2.bilateralFilter(frame, 9, 75, 75)
     #frame = cv2.GaussianBlur(frame, (7,7), 8)
-    #frame = cv2.medianBlur(frame, 25)
+    frame = cv2.medianBlur(frame, 9)
 
     # Renk değerleri RGB formatında değil HSV formatında alınacak 
     # Frame den alınan
@@ -37,6 +37,19 @@ while True:
         x, y, w, h = cv2.boundingRect(contour)
         cv2.rectangle(frame, (x, y), (x + w, y + h), (0, 255, 0), 2)  # Capture için şekil işaretleme 
         cv2.rectangle(red, (x, y), (x + w, y + h), (0, 255, 0), 2)  # Red Mask için şekil işaretleme 
+
+    w1, h1, c1 = frame.shape
+
+    # Ekran ortasındaki mavi kare
+    cv2.rectangle(frame, ((h1 // 2 - 20), (w1 // 2 - 20)), ((h1 // 2 + 20), (w1 // 2 + 20)), (204, 0, 0), 2)
+    
+    # Ekranı dörde bölen çizgiler 
+    cv2.line(frame, (h1 // 2, 0), (h1 // 2, w1), (204, 255, 255), 1)
+    cv2.line(frame, (0, w1 // 2), (h1, w1 // 2), (204, 255, 255), 1)
+
+    # Merkezden kutuya çizgi çizme
+    cv2.line(frame, (h1 // 2, w1 // 2), ((h1 // 2 + 20), (w1 // 2 + 20)), (0, 255, 0), 2)
+
 
     # Yakalanan frameler ekranda imshow ile gösterilir. 
     # İlk parametre pencere ismi ikinci paramaetre ekranda gösterilecek değerdir. 
