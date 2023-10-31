@@ -7,7 +7,7 @@ cap = cv2.VideoCapture(1)
 while True:
     #Kameradan sağlıklı olarak görüntü aldığında bu frame'leri frame değişkeni ile okuyup ret değişkeninde tutar  
     ret, frame = cap.read()
-    # Aynalı görüntü olmaması için eksende düzellik.
+    # Aynalı görüntü olmaması için eksende düzellik
     # Birinci parametre yansıma yapılacak değişken 
     # İkinci parametre yansımanın yapılacağı ekseni ifade eder
     frame = cv2.flip(frame, 1)
