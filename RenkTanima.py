@@ -2,7 +2,7 @@ import cv2
 import numpy as np
 
 # Kamerada görüntüyü alır 
-cap = cv2.VideoCapture(0)
+cap = cv2.VideoCapture(1)
 
 while True:
     #Kameradan sağlıklı olarak görüntü aldığında bu frame'leri frame değişkeni ile okuyup ret değişkeninde tutar  
