@@ -11,6 +11,11 @@ while True:
     # Birinci parametre yansıma yapılacak değişken 
     # İkinci parametre yansımanın yapılacağı ekseni ifade eder
     frame = cv2.flip(frame, 1)
+    
+    # Gürültü azaltmak için blur 
+    #frame = cv2.bilateralFilter(frame, 9, 75, 75)
+    #frame = cv2.GaussianBlur(frame, (7,7), 8)
+    #frame = cv2.medianBlur(frame, 25)
 
     # Renk değerleri RGB formatında değil HSV formatında alınacak 
     # Frame den alınan
