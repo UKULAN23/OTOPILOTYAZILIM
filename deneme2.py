@@ -3,8 +3,13 @@ import numpy as np
 
 cap = cv2.VideoCapture(0)
 
-while True:
+# Kameranın görüş açısı (derece cinsinden)
+viewing_angle_degrees = 60
 
+# Piksel uzunluğunu santimetre cinsine dönüştürmek için kullanılan dönüşüm faktörü
+conversion_factor = 10  # Örnek: 1 cm'yi kaç piksel olarak görmek istediğinizi belirleyin
+
+while True:
     ret, frame = cap.read()
     frame = cv2.flip(frame, 1)
     frame = cv2.medianBlur(frame, 7)
@@ -39,13 +44,21 @@ while True:
         screen_center_x = h1 // 2
         screen_center_y = w1 // 2
 
-        arrow_direction = (screen_center_x - rect_center_x, screen_center_y - rect_center_y)  # Ok yönünü tersine çevir
+        arrow_length = int(np.sqrt((screen_center_x - rect_center_x) ** 2 + (screen_center_y - rect_center_y) ** 2))
+        
+        # Ok uzunluğunu santimetre cinsinden hesapla
+        arrow_length_cm = arrow_length / conversion_factor
 
         cv2.rectangle(frame, (x, y), (x + w, y + h), (0, 255, 0), 2)
         cv2.arrowedLine(frame, (rect_center_x, rect_center_y), (screen_center_x, screen_center_y), (0, 255, 0), 2)
 
         cv2.rectangle(red, (x, y), (x + w, y + h), (0, 255, 0), 2)
         cv2.arrowedLine(red, (rect_center_x, rect_center_y), (screen_center_x, screen_center_y), (0, 255, 0), 2)
+
+        # Ok uzunluğunu ekranda ve "Red Mask" penceresinde yazdır
+        text = f"Ok Uzunluğu: {arrow_length_cm:.2f} cm"
+        cv2.putText(frame, text, (10, 30), cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 0, 255), 2)
+        cv2.putText(red, text, (10, 30), cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 0, 255), 2)
 
     cv2.rectangle(frame, ((h1 // 2 - 20), (w1 // 2 - 20)), ((h1 // 2 + 20), (w1 // 2 + 20)), (204, 0, 0), 2)
     cv2.line(frame, (h1 // 2, 0), (h1 // 2, w1), (204, 255, 255), 1)
